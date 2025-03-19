@@ -35,8 +35,8 @@ const App: React.FC = () => {
               ...tracker,
               date: new Date(tracker.date), // Convert string back to Date object
             }));
-            setTrackers(parsedTrackers);
-          }
+            setTrackers(parsedTrackers.sort((a: ExpenseTracker, b: ExpenseTracker)  => Math.abs(new Date().getTime() - a.date.getTime()) - Math.abs(new Date().getTime() - b.date.getTime())));
+        }
         };
         loadTrackers();
       }, []);
@@ -56,7 +56,7 @@ const App: React.FC = () => {
           status: "In progress ⚠️",
           expanded: false,
         };
-        setTrackers([...trackers, newTracker]);
+        setTrackers([...trackers, newTracker].sort((a, b) => a.date.getTime() - b.date.getTime()));
         setTrackerName("");
         setTrackerDate(new Date());
       };
